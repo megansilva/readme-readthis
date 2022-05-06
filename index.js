@@ -34,7 +34,7 @@ const questions = [
     {
         type:"input",
         messages:"What command should be run to install dependencies?",
-        name:"commmanDepend"
+        name:"commmandDepend"
     },
     {
         type:"input",

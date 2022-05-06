@@ -3,8 +3,7 @@
 function renderLicenseBadge(license) {
   // if statements 
   if (license !== "None") {
-    return `[MIT License](https://img.shields.io/badge/MIT-MIT%20License-green)`;
-    
+    return `![Github License](https://img.shields.io/badge/license-${license}-blue)`; 
   } 
     return "";
 }
