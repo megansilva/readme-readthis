@@ -4,6 +4,7 @@ function renderLicenseBadge(license) {
   // if statements 
   if (license !== "None") {
     return `![Github License](https://img.shields.io/badge/license-${license}-blue)`; 
+    
   } 
     return "";
 }
@@ -27,4 +28,4 @@ function generateMarkdown(data) {
 `;
 }
 
-module.exports = generateMarkdown;
+module.exports = getGithub;

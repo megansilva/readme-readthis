@@ -1,14 +1,15 @@
 // TODO: Include packages needed for this application
 
+
 const inquire = require("inquirer");
 const fs=require("fs");
-const path=require("path");
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = [
     {   type:"input",
-        message:"What is your GitHub username?",
-        name:"GitHib Username:"
+    message:"What is your GitHub username?",
+    name:"GitHib Username:"
     },
     {
         type:"input",
@@ -17,7 +18,7 @@ const questions = [
     },
     {
         type:"input",
-        message:"What is your project name?",
+        message:"What is your project title?",
         name:"Project name:"
     },
     {
@@ -26,15 +27,20 @@ const questions = [
         name:"Description:"
     },
     {
-        type:"checkbox",
-        message:"What king of licesne should your project have?",
-        choices:["MIT", "GPL 3.0", "BSD 3", "Apache 2.0", "None"],
-        name:"licenseHave"
-    },
-    {
         type:"input",
         messages:"What command should be run to install dependencies?",
         name:"commmandDepend"
+    },
+    {
+        type:"input",
+        messages:"What does the user need to know about using the repository?",
+        name:"usingRepo"   
+    },
+    {
+        type:"checkbox",
+        message:"What kind of licesne should your project have?",
+        choices:["MIT", "GPL 3.0", "BSD 3", "Apache 2.0", "None"],
+        name:"licenseHave"
     },
     {
         type:"input",
@@ -43,24 +49,21 @@ const questions = [
     },
     {
         type:"input",
-        messages:"What does the user nedd to know about using the repository?",
-        name:"usingRepo"   
-    },
-    {
-        type:"input",
-        messages:"What does the user nedd to know about contributing to the repository?",
+        messages:"What does the user need to know about contributing to the repository?",
         name:"contributeRepo"
     }
 ];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
+
 function init() {
-    inquire.prompt(questions)
+    inquire.prompt(questions).then((data) => {
+        console.log(data)
+
+    fs.writeFile('readMe/generatedReadme.md', generateMarkdown(data), (err) =>
+        err ? console.error(err) : console.log("Completed"))
+    });
 }
 
-
-// Function call to initialize app
 init();
