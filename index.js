@@ -1,69 +1,80 @@
 // TODO: Include packages needed for this application
 
 
-const inquire = require("inquirer");
-const fs=require("fs");
+const inquirer = require("inquirer");
+const fs = require("fs");
 const generateMarkdown = require('./utils/generateMarkdown');
+
 
 // TODO: Create an array of questions for user input
 const questions = [
     {   type:"input",
     message:"What is your GitHub username?",
-    name:"GitHib Username:"
+    name:"GitHub"
     },
     {
         type:"input",
         message:"What is your email addres?",
-        name:"Email address:"
+        name:"email"
     },
     {
         type:"input",
         message:"What is your project title?",
-        name:"Project name:"
+        name:"title"
     },
     {
         type:"input",
         message:"Please write a short description of your project.",
-        name:"Description:"
+        name:"description"
     },
     {
         type:"input",
         messages:"What command should be run to install dependencies?",
-        name:"commmandDepend"
+        name:"dependencies"
     },
     {
         type:"input",
         messages:"What does the user need to know about using the repository?",
-        name:"usingRepo"   
+        name:"benefits"   
     },
     {
         type:"checkbox",
         message:"What kind of licesne should your project have?",
         choices:["MIT", "GPL 3.0", "BSD 3", "Apache 2.0", "None"],
-        name:"licenseHave"
+        name:"license"
     },
     {
         type:"input",
         messages:"What command should be run to run tests?",
-        name:"commandRun"
+        name:"test"
     },
     {
         type:"input",
         messages:"What does the user need to know about contributing to the repository?",
-        name:"contributeRepo"
+        name:"contribute"
     }
 ];
 
 
-// TODO: Create a function to initialize app
+function writeToFile(fileName, data) {
+     fs.writeFile(fileName, data, (err) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log("Generated README")
+     })
+}
 
 function init() {
-    inquire.prompt(questions).then((data) => {
-        console.log(data)
+    inquirer.prompt(questions)
+        .then((inquirerResponse, data) => {
+            console.log("Generating");
 
-    fs.writeFile('readMe/generatedReadme.md', generateMarkdown(data), (err) =>
-        err ? console.error(err) : console.log("Completed"))
-    });
+            writeToFile("./readme/readME.md", generateMarkdown(inquirerResponse, data));
+        })
+        .catch((err) => {
+            console.log(err);
+        })      
 }
 
 init();
